@@ -364,6 +364,14 @@ __declspec(dllexport) void update_game(GameState* gameStateIn, Input* inputIn,
   {
     dt *= 0.25f;
   }
+
+  if(is_key_pressed(KEY_R)) // 적들을 없애는 키, 최대 3번
+  {
+    if(erase_cnt > 0) {
+      gameState->enemies.clear();
+      erase_cnt--;
+    }
+  }
   
   // Draw Background
   {
@@ -1447,7 +1455,7 @@ internal void update_level(float dt)
                   dn.pos = gameState->player.pos; // 플레이어 위치
                   dn.value = enemy->attack; // 공격력
                   gameState->damageNumbers.add(dn); // 데미지 표기 (플레이어가 받는)
-                  
+
                   if(gameState->player.hp <= 0)
                   {
                     gameState->state = GAME_STATE_LOST;
